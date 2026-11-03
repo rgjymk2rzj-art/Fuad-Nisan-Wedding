@@ -250,3 +250,23 @@ a:hover { color: var(--gold-ink); }
   .petals--l { top: auto; bottom: 18%; left: -70px; }
   .hands { height: min(52svh, 96vw * 1020 / 990); }
 }
+
+/* Guest-guide header pane — mirrors the "Thank you" page of the printed guide:
+   centred FN monogram with violet blooms scattered on both sides */
+.guide { padding-top: 0; }
+.guide__pane { position: relative; overflow: hidden; margin: 0 calc(-1 * clamp(16px, 4vw, 48px)) clamp(50px, 7vw, 90px); padding: clamp(70px, 10vw, 120px) 20px clamp(56px, 8vw, 90px); background: #fffdfb; text-align: center; border-bottom: 1px solid var(--line); }
+.pane__inner { position: relative; z-index: 2; display: grid; justify-items: center; gap: 14px; }
+.pane__mono { width: clamp(110px, 13vw, 170px); height: auto; margin: 0 auto 10px; }
+.guide__pane h2 { margin: 0; font-size: clamp(44px, 6vw, 80px); color: var(--ink); }
+.pane__flowers { position: absolute; top: 0; bottom: 0; width: min(42vw, 520px); pointer-events: none; z-index: 1; }
+.pane__flowers--l { left: 0; }
+.pane__flowers--r { right: 0; transform: scaleX(-1); }
+.pf { position: absolute; width: 100%; height: auto; }
+.pane__flowers .pf1 { top: -6%; left: -18%; }
+.pane__flowers .pf2 { bottom: -12%; left: -8%; width: 82%; transform: rotate(170deg); opacity: .9; }
+.guide__intro .sign { margin-top: 6px; }
+@media (max-width: 700px) {
+  .pane__flowers { width: 48vw; }
+  .pane__flowers .pf1 { top: -4%; left: -40%; }
+  .pane__flowers .pf2 { bottom: -6%; left: -38%; width: 90%; }
+}
