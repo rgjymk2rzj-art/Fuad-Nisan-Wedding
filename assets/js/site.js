@@ -26,6 +26,8 @@
     unionStage.style.setProperty('--t', t.toFixed(4));
     unionStage.style.setProperty('--g', g.toFixed(3));
     unionStage.style.setProperty('--v', v.toFixed(3));
+    // Bismillah fades away as the hands draw together
+    unionStage.style.setProperty('--bz', (1 - ease(clamp((p - 0.04) / 0.42))).toFixed(3));
   }
 
   // ---------- 2 · welcome map ----------
