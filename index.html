@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fuad &amp; Nisan</title>
+  <meta name="description" content="Fuad &amp; Nisan are getting married. Wedding details coming soon.">
+  <meta property="og:title" content="Fuad &amp; Nisan">
+  <meta property="og:description" content="We're getting married. Details coming soon.">
+  <meta property="og:url" content="https://fnwedding.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f2ea;
+      --ink: #2e2a25;
+      --muted: #7d7266;
+      --accent: #a8875a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Jost", system-ui, sans-serif;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      text-align: center;
+    }
+    main {
+      max-width: 560px;
+      width: 100%;
+      padding: 56px 24px;
+      border: 1px solid rgba(168, 135, 90, 0.35);
+      outline: 1px solid rgba(168, 135, 90, 0.18);
+      outline-offset: 8px;
+    }
+    .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(3rem, 12vw, 4.75rem);
+      line-height: 1.05;
+      margin: 20px 0 8px;
+    }
+    h1 .amp {
+      font-style: italic;
+      color: var(--accent);
+      font-size: 0.8em;
+      display: block;
+      margin: 4px 0;
+    }
+    .rule {
+      width: 64px;
+      height: 1px;
+      background: var(--accent);
+      margin: 28px auto;
+    }
+    .lead {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--ink);
+    }
+    .note {
+      margin-top: 14px;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Save the date</p>
+    <h1>Fuad <span class="amp">&amp;</span> Nisan</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="lead">We're getting married</p>
+    <p class="note">Details coming soon</p>
+  </main>
+</body>
+</html>
