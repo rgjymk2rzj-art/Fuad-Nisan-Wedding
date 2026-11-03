@@ -83,7 +83,7 @@ a:hover { color: var(--gold-ink); }
   radial-gradient(50% 40% at 50% 100%, rgba(196, 162, 101, .12), transparent 70%);
   animation: drift 24s ease-in-out infinite alternate; }
 @keyframes drift { to { transform: translate3d(2%, -2%, 0) scale(1.04); } }
-.petals { position: absolute; width: clamp(160px, 22vw, 320px); opacity: .55; pointer-events: none; }
+.petals { position: absolute; width: clamp(170px, 24vw, 340px); opacity: 1; pointer-events: none; }
 .petals--l { left: -40px; top: calc(var(--nav) + 4px); transform: rotate(-12deg); }
 .petals--r { right: -50px; bottom: -40px; transform: rotate(160deg); }
 
