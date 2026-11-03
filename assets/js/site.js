@@ -158,7 +158,7 @@
 
   // ---------- nav colour ----------
   const nav = $('#nav');
-  const darks = [welcome, $('.foot')].filter(Boolean);
+  const darks = [welcome, $('.guide__pane'), $('.foot')].filter(Boolean);
   function updateNav() {
     const y = nav.offsetHeight / 2;
     const onInk = darks.some((d) => { const r = d.getBoundingClientRect(); return r.top <= y && r.bottom >= y; });

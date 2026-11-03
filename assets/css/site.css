@@ -270,3 +270,10 @@ a:hover { color: var(--gold-ink); }
   .pane__flowers .pf1 { top: -4%; left: -40%; }
   .pane__flowers .pf2 { bottom: -6%; left: -38%; width: 90%; }
 }
+/* guide pane on the footer's violet night, gold monogram, softened blooms */
+.guide__pane { background: var(--ink); border-bottom: 0; }
+.guide__pane h2 { color: var(--white); }
+.guide__pane .eyebrow { color: var(--gold); }
+.pane__flowers .pf { opacity: .38; }
+.pane__flowers .pf2 { opacity: .32; }
+.pane__mono { filter: none; }
