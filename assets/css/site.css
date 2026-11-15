@@ -576,3 +576,5 @@ body.rsvp-open { overflow: hidden; }
 /* name on top, its three tags in one row underneath */
 .dishes li { grid-template-columns: 1fr; gap: 6px; }
 .dishes .tags { justify-content: flex-start; }
+.dish-link { color: inherit; text-decoration: underline; text-decoration-color: var(--lilac); text-underline-offset: 3px; }
+.dish-link:hover { color: var(--violet); }
