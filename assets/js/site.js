@@ -51,20 +51,17 @@
     const P = data.points;
     const keys = portrait ? ORIGINS.filter(([k]) => k !== 'canada') : ORIGINS;
     const pts = [P.nairobi, ...keys.map(([k]) => P[k])];
-    const x0 = Math.min(...pts.map((p) => p[0])) - (portrait ? 70 : 120);
-    const x1 = Math.max(...pts.map((p) => p[0])) + (portrait ? 70 : 160);
-    const y0 = Math.min(...pts.map((p) => p[1])) - 46;
-    const y1 = Math.max(...pts.map((p) => p[1])) + 45; // room for the NAIROBI label
-    // the routes sit in the top band of the page; the verse and welcome fill the rest
-    // measure the free space between the nav and the top of the verse
-    const verse = welcomeStage.querySelector('.welcome > *');
+    const x0 = Math.min(...pts.map((p) => p[0])) - (portrait ? 70 : 140);
+    const x1 = Math.max(...pts.map((p) => p[0])) + (portrait ? 70 : 180);
+    const y0 = Math.min(...pts.map((p) => p[1])) - 50;
+    const y1 = Math.max(...pts.map((p) => p[1])) + 60;
+    // full-stage framing below the nav: the welcome later fades in on top
     const navFrac = 64 / Math.max(1, r.height);
-    const freeTop = verse ? (verse.getBoundingClientRect().top - r.top - 34) / Math.max(1, r.height) : 0.45;
-    const band = clamp(freeTop - navFrac, 0.22, 0.6);
     const cw = x1 - x0, ch = y1 - y0;
-    const h = Math.max(ch / band, cw / aspect);
+    const h = Math.max(ch / (1 - navFrac - 0.06), cw / aspect);
     const w = h * aspect;
-    return { x: (x0 + x1) / 2 - w / 2, y: y0 - navFrac * h - (h * band - ch) / 2, w, h, portrait };
+    const cy = (y0 + y1) / 2 - (navFrac * h) / 2;
+    return { x: (x0 + x1) / 2 - w / 2, y: cy - h / 2, w, h, portrait };
   }
 
   function buildMap(data) {
@@ -124,16 +121,21 @@
   // The map is now the opening page: the flights play on their own when it
   // loads (scrolling can't rewind them), and the text is visible from the start.
   let flightT = reduce ? 1 : 0;
+  function revealWelcome() { if (welcomeStage) welcomeStage.classList.add('is-welcome'); }
   function playFlights() {
-    if (reduce) { updateWelcome(); return; }
-    const t0 = performance.now(), dur = 5200;
+    if (reduce) { updateWelcome(); revealWelcome(); return; }
+    const t0 = performance.now(), dur = 4600;
     const step = (now) => {
       flightT = clamp((now - t0) / dur);
       updateWelcome();
+      if (flightT > 0.88) revealWelcome();
       if (flightT < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
   }
+  window.addEventListener('scroll', () => { if (window.scrollY > 24) revealWelcome(); }, { passive: true });
+  // if the map data never arrives, still show the welcome
+  setTimeout(revealWelcome, 6500);
 
   function updateWelcome() {
     if (!welcomeStage || !map) return;
