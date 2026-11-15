@@ -34,7 +34,7 @@
   const welcome = $('[data-scene="welcome"]');
   const welcomeStage = welcome && $('.stage', welcome);
   const svg = $('#map');
-  const ORIGINS = [['canada', 'Canada'], ['italy', 'Italy'], ['greece', 'Greece'], ['egypt', 'Egypt'], ['uae', 'UAE']];
+  const ORIGINS = [['canada', 'Canada'], ['uk', 'UK'], ['italy', 'Italy'], ['greece', 'Greece'], ['egypt', 'Egypt'], ['uae', 'UAE'], ['tanzania', 'Tanzania']];
   let map = null;
 
   const el = (name, attrs, parent) => {
@@ -105,6 +105,8 @@
       if (key === 'italy') { t.setAttribute('text-anchor', 'end'); t.setAttribute('x', O[0] - 7 * u); }
       if (key === 'greece') { t.setAttribute('text-anchor', 'start'); t.setAttribute('x', O[0] + 6 * u); }
       if (key === 'uae') { t.setAttribute('text-anchor', 'start'); t.setAttribute('x', O[0] + 8 * u); t.setAttribute('y', O[1] + 4 * u); }
+      if (key === 'uk') { t.setAttribute('text-anchor', 'end'); t.setAttribute('x', O[0] - 7 * u); t.setAttribute('y', O[1] + 4 * u); }
+      if (key === 'tanzania') { t.setAttribute('y', O[1] + 19 * u); }
       const plane = el('path', { class: 'plane', d: 'M10 0c0-.7-.6-1.1-1.3-1.1H4.2L.2-7.6h-1.6l2.1 6.5h-4.5l-1.6-2.2h-1.3l1 3.3-1 3.3h1.3l1.6-2.2h4.5L-1.4 7.6H.2l4-6.5h4.5c.7 0 1.3-.4 1.3-1.1z', opacity: 0 }, planeLayer);
       arcs.push({ path, glow: path.previousSibling, plane, len: path.getTotalLength(), i });
     });
@@ -112,7 +114,8 @@
     el('circle', { cx: N[0], cy: N[1], r: 6 * u, class: 'pulse' }, nb);
     el('circle', { cx: N[0], cy: N[1], r: 6 * u, class: 'pulse p2' }, nb);
     el('circle', { cx: N[0], cy: N[1], r: 5 * u, class: 'core' }, nb);
-    const nt = el('text', { x: N[0], y: N[1] + 24 * u, 'text-anchor': 'middle', 'font-size': 13 * u }, nb);
+    // label sits to the left so the short Tanzania route stays clear
+    const nt = el('text', { x: N[0] - 11 * u, y: N[1] + 4 * u, 'text-anchor': 'end', 'font-size': 13 * u }, nb);
     nt.textContent = 'NAIROBI';
     map = { data, box, arcs, u };
     updateWelcome();
@@ -158,7 +161,7 @@
   }
 
   if (svg && welcomeStage) {
-    fetch('/assets/data/world.json').then((r) => r.json()).then((d) => { buildMap(d); playFlights(); }).catch(() => {});
+    fetch('/assets/data/world.json?v=2').then((r) => r.json()).then((d) => { buildMap(d); playFlights(); }).catch(() => {});
   }
 
   // ---------- 3 · cascading cards ----------
