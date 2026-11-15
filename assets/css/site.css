@@ -552,3 +552,13 @@ body.rsvp-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .rsvp__backdrop, .rsvp__card, .tick, .tick svg { animation: none; } .tick svg { stroke-dashoffset: 0; } }
 .rsvp__thanks { flex-wrap: nowrap !important; text-align: left; gap: 14px !important; }
 .rsvp__thanks > span:first-child { max-width: 9.5em; }
+
+/* centre "Thank you for confirming" (tick stays beside it) */
+.rsvp__thanks { display: flex !important; width: 100%; justify-content: center; text-align: center !important; }
+.rsvp__thanks > span:first-child { max-width: 8.6em; }
+@media (max-width: 420px) { .rsvp__thanks { flex-direction: column; gap: 10px !important; } .rsvp__thanks > span:first-child { max-width: none; } }
+
+/* one centred line: "Thank you for confirming ✓" */
+.rsvp__thanks { font-size: clamp(24px, 3vw, 29px) !important; }
+.rsvp__thanks > span:first-child { max-width: none; white-space: nowrap; }
+@media (max-width: 420px) { .rsvp__thanks > span:first-child { white-space: normal; } }
