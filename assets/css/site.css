@@ -475,3 +475,17 @@ a:hover { color: var(--gold-ink); }
 .card__title .card__num { margin: 0; font-size: clamp(13px, 1.1vw, 15px); }
 .card__title .card__ar { font-family: var(--arabic); font-weight: 400; font-size: clamp(28px, 2.6vw, 38px); line-height: 1.3; color: var(--lavender); }
 .card--nikah .card__title .card__ar, .card--reception .card__title .card__ar { color: var(--violet); }
+
+/* Handwritten welcome letter, written out by a pen */
+.letter { position: relative; }
+.letter p { font-family: "Dancing Script", var(--script); font-weight: 500; font-size: clamp(21px, 1.7vw, 25px); line-height: 1.45; color: var(--ink) !important; }
+.letter .sign { font-family: "Dancing Script", var(--script); font-weight: 600; font-size: clamp(28px, 2.4vw, 34px); color: var(--violet) !important; }
+.letter .ch { opacity: 0; transition: opacity .18s linear; }
+.letter .ch.on { opacity: 1; }
+.letter .w { white-space: nowrap; }
+.pen { position: absolute; left: 0; top: 0; width: 46px; height: 46px; z-index: 3; pointer-events: none; opacity: 0;
+  transform: translate(-6px, -40px); transition: opacity .4s ease; filter: drop-shadow(0 4px 6px rgba(43, 26, 63, .25)); }
+.letter.writing .pen { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .letter .ch { opacity: 1; transition: none; } .pen { display: none; } }
+.letter .sign { line-height: 1.25; margin-top: 10px; }
+.letter p { margin: 0; }

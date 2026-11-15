@@ -226,6 +226,55 @@
     } else pane.classList.add('is-live');
   }
 
+  // ---------- handwritten letter: a pen writes it out ----------
+  const letter = $('[data-write]');
+  if (letter && !reduce) {
+    const pen = $('.pen', letter);
+    const chars = [];
+    $$('p', letter).forEach((p) => {
+      const words = p.textContent.split(/(\s+)/);
+      p.textContent = '';
+      words.forEach((wd) => {
+        if (/^\s+$/.test(wd)) { p.appendChild(document.createTextNode(wd)); return; }
+        const w = document.createElement('span');
+        w.className = 'w';
+        for (const c of wd) {
+          const sp = document.createElement('span');
+          sp.className = 'ch';
+          sp.textContent = c;
+          w.appendChild(sp);
+          chars.push(sp);
+        }
+        p.appendChild(w);
+      });
+    });
+    let started = false;
+    const finish = () => { chars.forEach((c) => c.classList.add('on')); letter.classList.remove('writing'); };
+    const write = () => {
+      if (started) return;
+      started = true;
+      letter.classList.add('writing');
+      let i = 0;
+      const box = () => letter.getBoundingClientRect();
+      const perFrame = 1; // one character per frame (~60 a second), like handwriting
+      const step = () => {
+        for (let k = 0; k < perFrame && i < chars.length; k++, i++) chars[i].classList.add('on');
+        const cur = chars[Math.min(i, chars.length - 1)];
+        const r = cur.getBoundingClientRect(), b = box();
+        pen.style.left = (r.right - b.left) + 'px';
+        pen.style.top = (r.bottom - b.top) + 'px';
+        if (i < chars.length) requestAnimationFrame(step);
+        else setTimeout(() => letter.classList.remove('writing'), 500);
+      };
+      requestAnimationFrame(step);
+    };
+    letter.addEventListener('click', finish);
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { io.disconnect(); setTimeout(write, 400); } }), { threshold: 0.35 });
+      io.observe(letter);
+    } else write();
+  }
+
   // ---------- countdown ----------
   $$('[data-countdown]').forEach((box) => {
     const target = new Date(box.getAttribute('data-countdown')).getTime();
