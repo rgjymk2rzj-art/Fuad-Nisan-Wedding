@@ -465,3 +465,7 @@ a:hover { color: var(--gold-ink); }
 @keyframes fall { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(var(--drift), calc(100% + 760px), 0); } }
 @keyframes sway { from { transform: translateX(-14px) rotate(calc(var(--r) * -1)); } to { transform: translateX(14px) rotate(var(--r)); } }
 @media (prefers-reduced-motion: reduce) { .pane__fall { display: none; } }
+
+/* dates on one line, place on the next */
+.welcome__date span { display: block; }
+.welcome__date span + span { margin-top: 2px; }
