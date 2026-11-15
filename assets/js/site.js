@@ -275,6 +275,66 @@
     } else write();
   }
 
+  // ---------- RSVP (posts to the Google Form, stays on the page) ----------
+  const RSVP_FORM = {
+    action: 'https://docs.google.com/forms/d/e/1FAIpQLSftawhB_k7jBuLx4e4x1CSg3SeNhkNmXlsHIwDi7_jLlI9kzA/formResponse',
+    fields: { name: 'entry.451848803', email: 'entry.1220429755', mobile: 'entry.1535312045', attend: 'entry.2021702797' },
+    attendValue: 'Yes, I will attend',
+  };
+  const modal = $('#rsvp');
+  if (modal) {
+    const form = $('#rsvp-form', modal);
+    const err = $('.rsvp__err', modal);
+    const stepForm = $('[data-step="form"]', modal), stepDone = $('[data-step="done"]', modal);
+    let lastFocus = null;
+    const open = () => {
+      lastFocus = document.activeElement;
+      modal.hidden = false; document.body.classList.add('rsvp-open');
+      setTimeout(() => (stepDone.hidden ? $('input', form) : stepDone).focus(), 60);
+    };
+    const close = () => { modal.hidden = true; document.body.classList.remove('rsvp-open'); if (lastFocus) lastFocus.focus(); };
+    $$('[data-rsvp]').forEach((b) => b.addEventListener('click', open));
+    $$('[data-rsvp-close]', modal).forEach((b) => b.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) close(); });
+    const showErr = (m) => { err.textContent = m; err.hidden = !m; };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      showErr('');
+      const f = form.elements;
+      const name = f.name.value.trim(), mobile = f.mobile.value.trim(), email = f.email.value.trim();
+      [f.name, f.mobile, f.email].forEach((i) => i.removeAttribute('aria-invalid'));
+      if (name.length < 2) { f.name.setAttribute('aria-invalid', 'true'); f.name.focus(); return showErr('Please enter your full name.'); }
+      if (mobile.replace(/[^0-9]/g, '').length < 7) { f.mobile.setAttribute('aria-invalid', 'true'); f.mobile.focus(); return showErr('Please enter your mobile number, with country code.'); }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { f.email.setAttribute('aria-invalid', 'true'); f.email.focus(); return showErr('Please enter a valid email address.'); }
+      if (!f.attend.checked) { f.attend.focus(); return showErr('Please tick the box to confirm your attendance.'); }
+      if (!RSVP_FORM.action) return showErr('RSVP is opening shortly — please try again soon.');
+      const btn = $('.rsvp__submit', form); btn.disabled = true; btn.textContent = 'Sending…';
+      const body = new URLSearchParams();
+      body.append(RSVP_FORM.fields.name, name);
+      body.append(RSVP_FORM.fields.mobile, mobile);
+      body.append(RSVP_FORM.fields.email, email);
+      body.append(RSVP_FORM.fields.attend, RSVP_FORM.attendValue);
+      try {
+        await fetch(RSVP_FORM.action, { method: 'POST', mode: 'no-cors', body });
+        stepForm.hidden = true; stepDone.hidden = false; stepDone.focus();
+        try { localStorage.setItem('fn-rsvp', '1'); } catch (x) {}
+      } catch (x) {
+        showErr('We couldn’t send that — please check your connection and try again.');
+      } finally { btn.disabled = false; btn.textContent = 'Confirm attendance'; }
+    });
+    // floating bottom button: shows after the opening screen, hides over the footer
+    const float = $('.rsvp-float'), foot = $('.foot');
+    const updFloat = () => {
+      if (!float) return;
+      const past = window.scrollY > window.innerHeight * 0.6;
+      const footR = foot ? foot.getBoundingClientRect().top : Infinity;
+      float.classList.toggle('show', past && footR > window.innerHeight - 40 && modal.hidden);
+    };
+    window.addEventListener('scroll', updFloat, { passive: true });
+    window.addEventListener('resize', updFloat);
+    updFloat();
+  }
+
   // ---------- countdown ----------
   $$('[data-countdown]').forEach((box) => {
     const target = new Date(box.getAttribute('data-countdown')).getTime();
