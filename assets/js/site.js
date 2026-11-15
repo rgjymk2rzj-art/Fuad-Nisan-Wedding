@@ -51,21 +51,25 @@
     const P = data.points;
     const keys = portrait ? ORIGINS.filter(([k]) => k !== 'canada') : ORIGINS;
     const pts = [P.nairobi, ...keys.map(([k]) => P[k])];
-    let x0 = Math.min(...pts.map((p) => p[0])) - (portrait ? 90 : 140);
-    let x1 = Math.max(...pts.map((p) => p[0])) + (portrait ? 90 : 200);
-    let y0 = Math.min(...pts.map((p) => p[1])) - 120;
-    let y1 = Math.max(...pts.map((p) => p[1])) + (portrait ? 220 : 150);
-    // leave the lower part of the stage for the welcome text
-    y1 += (y1 - y0) * (portrait ? 1.1 : 0.85);
-    let w = x1 - x0, h = y1 - y0;
-    const cx = x0 + w / 2, cy = y0 + h / 2;
-    if (w / h > aspect) h = w / aspect; else w = h * aspect;
-    return { x: cx - w / 2, y: cy - h / 2, w, h, portrait };
+    const x0 = Math.min(...pts.map((p) => p[0])) - (portrait ? 70 : 120);
+    const x1 = Math.max(...pts.map((p) => p[0])) + (portrait ? 70 : 160);
+    const y0 = Math.min(...pts.map((p) => p[1])) - 46;
+    const y1 = Math.max(...pts.map((p) => p[1])) + 45; // room for the NAIROBI label
+    // the routes sit in the top band of the page; the verse and welcome fill the rest
+    // measure the free space between the nav and the top of the verse
+    const verse = welcomeStage.querySelector('.welcome .verse');
+    const navFrac = 64 / Math.max(1, r.height);
+    const freeTop = verse ? (verse.getBoundingClientRect().top - r.top - 34) / Math.max(1, r.height) : 0.45;
+    const band = clamp(freeTop - navFrac, 0.22, 0.6);
+    const cw = x1 - x0, ch = y1 - y0;
+    const h = Math.max(ch / band, cw / aspect);
+    const w = h * aspect;
+    return { x: (x0 + x1) / 2 - w / 2, y: y0 - navFrac * h - (h * band - ch) / 2, w, h, portrait };
   }
 
   function buildMap(data) {
     const box = viewFor(data);
-    const u = box.w / 900;
+    const u = (box.w / 900) * (box.portrait ? 1.9 : 1);
     svg.innerHTML = '';
     svg.setAttribute('viewBox', `${box.x} ${box.y} ${box.w} ${box.h}`);
     const defs = el('defs', {}, svg);
@@ -117,15 +121,27 @@
     updateWelcome();
   }
 
+  // The map is now the opening page: the flights play on their own when it
+  // loads (scrolling can't rewind them), and the text is visible from the start.
+  let flightT = reduce ? 1 : 0;
+  function playFlights() {
+    if (reduce) { updateWelcome(); return; }
+    const t0 = performance.now(), dur = 5200;
+    const step = (now) => {
+      flightT = clamp((now - t0) / dur);
+      updateWelcome();
+      if (flightT < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
   function updateWelcome() {
-    if (!welcomeStage) return;
-    const p = reduce ? 1 : progress(welcome);
-    welcomeStage.style.setProperty('--w', ease(clamp((p - 0.02) / 0.18)).toFixed(3));
-    if (!map) return;
+    if (!welcomeStage || !map) return;
+    const p = Math.max(flightT, reduce ? 1 : progress(welcome));
     const n = map.arcs.length;
     map.arcs.forEach((a) => {
-      const start = 0.06 + a.i * (0.3 / n);
-      const local = reduce ? 1 : clamp((p - start) / 0.5);
+      const start = 0.04 + a.i * (0.3 / n);
+      const local = clamp((p - start) / 0.62);
       const e = easeIO(local);
       a.path.setAttribute('stroke-dashoffset', (1 - e).toFixed(4));
       a.glow.setAttribute('stroke-dashoffset', (1 - e).toFixed(4));
@@ -140,7 +156,7 @@
   }
 
   if (svg && welcomeStage) {
-    fetch('/assets/data/world.json').then((r) => r.json()).then(buildMap).catch(() => {});
+    fetch('/assets/data/world.json').then((r) => r.json()).then((d) => { buildMap(d); playFlights(); }).catch(() => {});
   }
 
   // ---------- 3 · cascading cards ----------

@@ -17,10 +17,8 @@
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap">
-<link rel="stylesheet" href="/assets/css/site.css?v=8">
-<link rel="preload" as="image" href="/assets/img/hand-groom.webp">
-<link rel="preload" as="image" href="/assets/img/hand-bride.webp">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="/assets/css/site.css?v=9">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -41,42 +39,17 @@
 
 <main id="main">
 
-<!-- 1 · Two hands, one union -->
-<section id="top" class="scene scene--union" data-scene="union" aria-label="Fuad and Nisan">
-  <div class="stage">
-    <div class="mist" aria-hidden="true"></div>
-    <img class="petals petals--l" src="/assets/img/petals-deep.webp" alt="" aria-hidden="true">
-    <img class="petals petals--r" src="/assets/img/petals-deep.webp" alt="" aria-hidden="true">
-
-    <div class="union">
-      <div class="bismillah">
-        <p class="bismillah__ar" lang="ar" dir="rtl">بسم الله الرحمن الرحيم</p>
-        <p class="bismillah__en">In the Name of Allah, the Most Compassionate, the Most Merciful</p>
-      </div>
-
-      <div class="hands" aria-hidden="true">
-        <img class="hand hand--groom" src="/assets/img/hand-groom.webp" alt="" width="990" height="1020">
-        <img class="hand hand--bride" src="/assets/img/hand-bride.webp" alt="" width="990" height="1020">
-        <span class="touch"></span>
-      </div>
-      <p class="sr-only">Two hands — Fuad's and Nisan's — reach toward each other and meet.</p>
-
+<!-- 1 · Welcome + countdown over converging flights -->
+<section id="top" class="scene scene--welcome" data-scene="welcome" aria-labelledby="welcome-title">
+  <span id="welcome" class="anchor"></span>
+  <div class="stage stage--ink">
+    <svg class="map" id="map" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid slice"></svg>
+    <div class="welcome">
       <div class="verse">
         <p class="verse__ar" lang="ar" dir="rtl">وَخَلَقْنَاكُمْ أَزْوَاجًا</p>
         <p class="verse__en">(And We created you in pairs.)</p>
         <p class="verse__ref">Qur’an 78:8</p>
       </div>
-    </div>
-
-    <p class="cue" aria-hidden="true">Scroll</p>
-  </div>
-</section>
-
-<!-- 2 · Welcome + countdown over converging flights -->
-<section id="welcome" class="scene scene--welcome" data-scene="welcome" aria-labelledby="welcome-title">
-  <div class="stage stage--ink">
-    <svg class="map" id="map" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid slice"></svg>
-    <div class="welcome">
       <p class="eyebrow">Karibu · Ku soo dhowaada · <span lang="ar">أهلاً وسهلاً</span></p>
       <h1 id="welcome-title" class="disp">Welcome to <span class="names">Fuad &amp; Nisan’s</span> wedding</h1>
       <div class="countdown" data-countdown="2026-12-19T15:30:00+03:00" role="timer" aria-live="off">
@@ -280,6 +253,6 @@
 </footer>
 
 <div class="toast" role="status" aria-live="polite"></div>
-<script src="/assets/js/site.js?v=6" defer></script>
+<script src="/assets/js/site.js?v=9" defer></script>
 </body>
 </html>
