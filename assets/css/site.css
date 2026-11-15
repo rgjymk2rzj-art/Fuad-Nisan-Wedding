@@ -345,3 +345,11 @@ a:hover { color: var(--gold-ink); }
 }
 @media (max-height: 640px) { .welcome .names { font-size: clamp(40px, 6vw, 80px); } .countdown span { font-size: 32px; } }
 @media (prefers-reduced-motion: reduce) { .welcome, .map { transition: none; } }
+
+/* Qur'an 30:21 under the date on the opening page */
+.verse--welcome { max-width: 680px; margin-top: clamp(10px, 2.4vh, 26px); padding-top: clamp(12px, 2.2vh, 22px); border-top: 1px solid rgba(230, 212, 172, .28); }
+.verse--welcome .verse__ar { font-size: clamp(18px, 1.8vw, 24px); line-height: 1.85; color: var(--gold-2); }
+.verse--welcome .verse__en { margin-top: 6px; font-size: clamp(13.5px, 1.15vw, 16px); line-height: 1.55; color: var(--on-ink); opacity: .9; }
+.verse--welcome .verse__ref { margin-top: 6px; font-size: 10.5px; color: var(--gold); }
+@media (max-width: 600px) { .verse--welcome .verse__ar { font-size: 17px; line-height: 1.8; } .verse--welcome .verse__en { font-size: 13px; } }
+@media (max-height: 700px) { .verse--welcome .verse__en { display: none; } }
