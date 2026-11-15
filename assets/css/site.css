@@ -324,10 +324,10 @@ a:hover { color: var(--gold-ink); }
 .verse--small::after { content: ""; display: block; width: 64px; height: 1px; margin: clamp(22px, 3vw, 34px) auto 0; background: var(--gold); opacity: .7; }
 
 /* ---------- Opening: map first, then the welcome rises over it ---------- */
-.map { transition: opacity 1.6s var(--ease), filter 1.6s var(--ease), transform 2.4s var(--ease); transform-origin: 50% 45%; }
+.map { transition: opacity 1s var(--ease), filter 1s var(--ease), transform 1.6s var(--ease); transform-origin: 50% 45%; }
 .stage--ink.is-welcome .map { opacity: .32; filter: blur(1.5px) saturate(.85); transform: scale(1.04); }
 .welcome { justify-content: center; gap: clamp(10px, 1.8vh, 18px); padding: calc(var(--nav) + 12px) 16px 28px;
-  opacity: 0; transform: translateY(24px) scale(.985); transition: opacity 1.4s var(--ease), transform 1.4s var(--ease); pointer-events: none; }
+  opacity: 0; transform: translateY(24px) scale(.985); transition: opacity .9s var(--ease), transform .9s var(--ease); pointer-events: none; }
 .welcome > * { animation: none !important; }
 .stage--ink.is-welcome .welcome { opacity: 1; transform: none; pointer-events: auto; }
 .welcome::before { top: 50%; height: 80%; width: min(1100px, 160vw); background: radial-gradient(closest-side, rgba(31, 18, 48, .7), rgba(31, 18, 48, .35) 60%, rgba(31, 18, 48, 0)); }

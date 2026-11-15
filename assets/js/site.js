@@ -124,18 +124,18 @@
   function revealWelcome() { if (welcomeStage) welcomeStage.classList.add('is-welcome'); }
   function playFlights() {
     if (reduce) { updateWelcome(); revealWelcome(); return; }
-    const t0 = performance.now(), dur = 4600;
+    const t0 = performance.now(), dur = 3200;
     const step = (now) => {
       flightT = clamp((now - t0) / dur);
       updateWelcome();
-      if (flightT > 0.88) revealWelcome();
+      if (flightT > 0.78) revealWelcome();
       if (flightT < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
   }
   window.addEventListener('scroll', () => { if (window.scrollY > 24) revealWelcome(); }, { passive: true });
   // if the map data never arrives, still show the welcome
-  setTimeout(revealWelcome, 6500);
+  setTimeout(revealWelcome, 4500);
 
   function updateWelcome() {
     if (!welcomeStage || !map) return;
