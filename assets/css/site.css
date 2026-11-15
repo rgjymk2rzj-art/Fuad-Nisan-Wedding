@@ -315,3 +315,10 @@ a:hover { color: var(--gold-ink); }
 .verse--small .verse__ar { font-size: clamp(24px, 2.4vw, 30px); line-height: 1.5; color: var(--violet); }
 .verse--small .verse__en { margin: 0; font-size: clamp(15px, 1.3vw, 17px); color: var(--ink); }
 .verse--small .verse__ref { margin: 2px 0 0; font-size: 10.5px; color: var(--gold-ink); }
+
+/* Qur'an 30:21 — centred above "Three celebrations" */
+.verse--small { justify-self: stretch; max-width: 760px; margin: 0 auto clamp(30px, 4.5vw, 54px); text-align: center; }
+.verse--small .verse__ar { font-size: clamp(21px, 2.2vw, 28px); line-height: 1.9; }
+.verse--small .verse__en { margin-top: 8px; font-size: clamp(15px, 1.35vw, 17.5px); line-height: 1.55; }
+.verse--small .verse__ref { margin-top: 8px; }
+.verse--small::after { content: ""; display: block; width: 64px; height: 1px; margin: clamp(22px, 3vw, 34px) auto 0; background: var(--gold); opacity: .7; }
