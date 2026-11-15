@@ -448,3 +448,6 @@ a:hover { color: var(--gold-ink); }
 .welcome .scroll-down.ln { transform: translateY(10px); }
 .stage--ink.is-welcome .welcome .scroll-down.ln { transform: none; }
 @media (prefers-reduced-motion: reduce) { .scroll-down svg { animation: none; } }
+
+.card__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.card__tags .card__tag { margin: 0; }
