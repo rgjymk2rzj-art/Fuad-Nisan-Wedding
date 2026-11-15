@@ -476,14 +476,24 @@ a:hover { color: var(--gold-ink); }
 .card__title .card__ar { font-family: var(--arabic); font-weight: 400; font-size: clamp(28px, 2.6vw, 38px); line-height: 1.3; color: var(--lavender); }
 .card--nikah .card__title .card__ar, .card--reception .card__title .card__ar { color: var(--violet); }
 
-/* Welcome letter, written out by a pen (original fonts kept) */
-.letter .ch { opacity: 0; transition: opacity .18s linear; }
-.letter .ch.on { opacity: 1; }
-.letter .w { white-space: nowrap; }
-.pen { position: absolute; left: 0; top: 0; width: 40px; height: 40px; z-index: 3; pointer-events: none; opacity: 0;
-  transform: translate(-6px, -34px); transition: opacity .4s ease; filter: drop-shadow(0 4px 6px rgba(43, 26, 63, .25)); }
-.letter.writing .pen { opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .letter .ch { opacity: 1; transition: none; } .pen { display: none; } }
+/* Welcome letter: each word fades in with a golden sparkle */
+.letter .w { display: inline-block; opacity: 0; filter: blur(5px); transform: translateY(5px);
+  transition: opacity .9s ease, filter .9s ease, transform .9s ease; }
+.letter .w.on { opacity: 1; filter: none; transform: none; animation: glint 1.6s ease-out; }
+@keyframes glint {
+  0%   { color: var(--gold); text-shadow: 0 0 14px rgba(230, 212, 172, .95), 0 0 4px rgba(196, 162, 101, .8); }
+  100% { text-shadow: 0 0 0 rgba(230, 212, 172, 0); }
+}
+.letter .spark { position: absolute; z-index: 3; width: 20px; height: 20px; margin: -10px 0 0 -10px; pointer-events: none;
+  background: radial-gradient(circle, #fffdf6 0 12%, #e8c97e 28%, #b8913f 62%);
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  transform: scale(0) rotate(0deg); animation: sparkle 1.1s ease-out forwards; filter: drop-shadow(0 0 3px rgba(230, 212, 172, .9)); }
+@keyframes sparkle {
+  0%   { transform: scale(0) rotate(0deg); opacity: 0; }
+  35%  { transform: scale(var(--s, 1)) rotate(70deg); opacity: 1; }
+  100% { transform: scale(0) rotate(160deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .letter .w { opacity: 1; filter: none; transform: none; transition: none; } .letter .spark { display: none; } }
 /* phones: the letter is its own section, clearly separated from Accommodation */
 @media (max-width: 900px) {
   .guide__wrap { gap: 0; }
@@ -587,3 +597,5 @@ body.rsvp-open { overflow: hidden; }
 .phone input:focus { outline: none; border-color: var(--violet); box-shadow: 0 0 0 3px rgba(91, 58, 138, .15); }
 .phone input[aria-invalid="true"] { border-color: #b4465a; }
 @media (max-width: 380px) { .phone { grid-template-columns: minmax(0, 120px) minmax(0, 1fr); } }
+/* keep sparkles anchored to the letter when it isn't sticky */
+@media (max-width: 900px) { .guide__intro.letter { position: relative; top: auto; } }

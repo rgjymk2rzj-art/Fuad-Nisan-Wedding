@@ -226,53 +226,53 @@
     } else pane.classList.add('is-live');
   }
 
-  // ---------- handwritten letter: a pen writes it out ----------
+  // ---------- welcome letter: words fade in with a golden sparkle ----------
   const letter = $('[data-write]');
   if (letter && !reduce) {
-    const pen = $('.pen', letter);
-    const chars = [];
+    const words = [];
     $$('p', letter).forEach((p) => {
-      const words = p.textContent.split(/(\s+)/);
+      const parts = p.textContent.split(/(\s+)/);
       p.textContent = '';
-      words.forEach((wd) => {
+      parts.forEach((wd) => {
+        if (!wd) return;
         if (/^\s+$/.test(wd)) { p.appendChild(document.createTextNode(wd)); return; }
         const w = document.createElement('span');
         w.className = 'w';
-        for (const c of wd) {
-          const sp = document.createElement('span');
-          sp.className = 'ch';
-          sp.textContent = c;
-          w.appendChild(sp);
-          chars.push(sp);
-        }
+        w.textContent = wd;
         p.appendChild(w);
+        words.push(w);
       });
     });
-    let started = false;
-    const finish = () => { chars.forEach((c) => c.classList.add('on')); letter.classList.remove('writing'); };
-    const write = () => {
+    const spark = (w) => {
+      const b = letter.getBoundingClientRect(), r = w.getBoundingClientRect();
+      const n = 1 + (Math.random() < 0.45 ? 1 : 0);
+      for (let k = 0; k < n; k++) {
+        const s = document.createElement('i');
+        s.className = 'spark';
+        s.style.left = (r.left - b.left + Math.random() * r.width) + 'px';
+        s.style.top = (r.top - b.top + (Math.random() - 0.25) * r.height) + 'px';
+        s.style.setProperty('--s', (0.6 + Math.random() * 0.8).toFixed(2));
+        s.style.animationDelay = (k * 120) + 'ms';
+        letter.appendChild(s);
+        setTimeout(() => s.remove(), 1500);
+      }
+    };
+    let started = false, done = false;
+    const finish = () => { done = true; words.forEach((w) => w.classList.add('on')); };
+    const play = () => {
       if (started) return;
       started = true;
-      letter.classList.add('writing');
-      let i = 0;
-      const box = () => letter.getBoundingClientRect();
-      const perFrame = 1; // one character per frame (~60 a second), like handwriting
-      const step = () => {
-        for (let k = 0; k < perFrame && i < chars.length; k++, i++) chars[i].classList.add('on');
-        const cur = chars[Math.min(i, chars.length - 1)];
-        const r = cur.getBoundingClientRect(), b = box();
-        pen.style.left = (r.right - b.left) + 'px';
-        pen.style.top = (r.bottom - b.top) + 'px';
-        if (i < chars.length) requestAnimationFrame(step);
-        else setTimeout(() => letter.classList.remove('writing'), 500);
-      };
-      requestAnimationFrame(step);
+      words.forEach((w, i) => setTimeout(() => {
+        if (done) return;
+        w.classList.add('on');
+        spark(w);
+      }, i * 75));
     };
     letter.addEventListener('click', finish);
     if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { io.disconnect(); setTimeout(write, 400); } }), { threshold: 0.35 });
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { io.disconnect(); setTimeout(play, 300); } }), { threshold: 0.35 });
       io.observe(letter);
-    } else write();
+    } else play();
   }
 
   // ---------- RSVP (posts to the Google Form, stays on the page) ----------
