@@ -301,10 +301,14 @@
       e.preventDefault();
       showErr('');
       const f = form.elements;
-      const name = f.name.value.trim(), mobile = f.mobile.value.trim(), email = f.email.value.trim();
+      const name = f.name.value.trim(), email = f.email.value.trim();
+      // combine the chosen country code with the number (drop a leading 0, keep a typed +code as-is)
+      const raw = f.mobile.value.trim();
+      const cc = f.cc.value;
+      const mobile = raw.startsWith('+') || !cc ? raw : cc + ' ' + raw.replace(/^0+/, '');
       [f.name, f.mobile, f.email].forEach((i) => i.removeAttribute('aria-invalid'));
       if (name.length < 2) { f.name.setAttribute('aria-invalid', 'true'); f.name.focus(); return showErr('Please enter your full name.'); }
-      if (mobile.replace(/[^0-9]/g, '').length < 7) { f.mobile.setAttribute('aria-invalid', 'true'); f.mobile.focus(); return showErr('Please enter your mobile number, with country code.'); }
+      if (mobile.replace(/[^0-9]/g, '').length < 7) { f.mobile.setAttribute('aria-invalid', 'true'); f.mobile.focus(); return showErr(f.cc.value ? 'Please enter your mobile number.' : 'Please enter your mobile number, starting with + and your country code.'); }
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { f.email.setAttribute('aria-invalid', 'true'); f.email.focus(); return showErr('Please enter a valid email address.'); }
       if (!f.attend.checked) { f.attend.focus(); return showErr('Please tick the box to confirm your attendance.'); }
       if (!RSVP_FORM.action) return showErr('RSVP is opening shortly — please try again soon.');
