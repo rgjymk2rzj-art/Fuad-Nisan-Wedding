@@ -421,3 +421,16 @@ a:hover { color: var(--gold-ink); }
   .countdown div { width: 56px; padding: 6px 4px 5px; }
   .countdown span { font-size: 21px; }
 }
+
+/* Welcome lines arrive one after another */
+.ln--block { display: block; }
+.welcome .names { display: block; }
+.scene--welcome .welcome { opacity: 1; transform: none; transition: none; }
+.welcome .ln { opacity: 0; transform: translateY(16px); filter: blur(4px);
+  transition: opacity .75s var(--ease), transform .75s var(--ease), filter .75s var(--ease);
+  transition-delay: calc(var(--d, 0) * 210ms); }
+.welcome .ln--rule { opacity: 1; transform: none; filter: none; border-top-color: transparent; transition: border-color .8s var(--ease) calc(var(--d, 0) * 210ms); }
+.stage--ink.is-welcome .welcome .ln { opacity: 1; transform: none; filter: none; }
+.stage--ink.is-welcome .welcome .ln--rule { border-top-color: rgba(230, 212, 172, .28); }
+.countdown.ln, .welcome__date.ln { will-change: opacity, transform; }
+@media (prefers-reduced-motion: reduce) { .welcome .ln { opacity: 1; transform: none; filter: none; transition: none; } }
