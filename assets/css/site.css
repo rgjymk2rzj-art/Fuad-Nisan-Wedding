@@ -434,3 +434,19 @@ a:hover { color: var(--gold-ink); }
 .stage--ink.is-welcome .welcome .ln--rule { border-top-color: rgba(230, 212, 172, .28); }
 .countdown.ln, .welcome__date.ln { will-change: opacity, transform; }
 @media (prefers-reduced-motion: reduce) { .welcome .ln { opacity: 1; transform: none; filter: none; transition: none; } }
+
+/* Welcome fills the whole screen, with a scroll-down arrow at the bottom */
+.scene--welcome .stage { min-height: 100svh; }
+.scene--welcome .welcome { min-height: 100svh; padding-bottom: clamp(64px, 9vh, 96px); }
+.scene--welcome .stage::after { display: none; }
+.events::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: clamp(36px, 5vh, 64px); pointer-events: none;
+  background: linear-gradient(var(--ink), rgba(43, 26, 63, 0)); opacity: .9; }
+.scroll-down { position: absolute; left: 50%; bottom: clamp(14px, 3vh, 28px); width: 46px; height: 46px; margin-left: -23px; z-index: 4;
+  display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(230, 212, 172, .45); color: var(--gold-2); text-decoration: none;
+  background: rgba(43, 26, 63, .4); }
+.scroll-down:hover { color: var(--white); border-color: var(--gold-2); }
+.scroll-down svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; animation: nudge 1.8s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(4px); } }
+.welcome .scroll-down.ln { transform: translateY(10px); }
+.stage--ink.is-welcome .welcome .scroll-down.ln { transform: none; }
+@media (prefers-reduced-motion: reduce) { .scroll-down svg { animation: none; } }
