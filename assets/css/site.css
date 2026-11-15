@@ -569,3 +569,7 @@ body.rsvp-open { overflow: hidden; }
 .dishes li:first-child { border-top: 0; padding-top: 2px; }
 .dishes b { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--ink); }
 .dishes span { font-size: 13.5px; line-height: 1.5; color: var(--mute); }
+
+.dishes li { grid-template-columns: auto 1fr; align-items: center; gap: 6px 12px; }
+.dishes .tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 5px; }
+.dishes .tags i { font-style: normal; font-size: 11.5px; line-height: 1; padding: 5px 9px; border-radius: 999px; background: var(--lilac-2); border: 1px solid var(--lilac); color: var(--violet); white-space: nowrap; }
