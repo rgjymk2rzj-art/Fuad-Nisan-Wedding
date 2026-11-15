@@ -439,8 +439,6 @@ a:hover { color: var(--gold-ink); }
 .scene--welcome .stage { min-height: 100svh; }
 .scene--welcome .welcome { min-height: 100svh; padding-bottom: clamp(64px, 9vh, 96px); }
 .scene--welcome .stage::after { display: none; }
-.events::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: clamp(36px, 5vh, 64px); pointer-events: none;
-  background: linear-gradient(var(--ink), rgba(43, 26, 63, 0)); opacity: .9; }
 .scroll-down { position: absolute; left: 50%; bottom: clamp(14px, 3vh, 28px); width: 46px; height: 46px; margin-left: -23px; z-index: 4;
   display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(230, 212, 172, .45); color: var(--gold-2); text-decoration: none;
   background: rgba(43, 26, 63, .4); }
