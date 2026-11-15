@@ -308,3 +308,10 @@ a:hover { color: var(--gold-ink); }
 .welcome .verse__en { font-size: clamp(15px, 1.5vw, 19px); }
 .countdown div { padding: 10px 8px 8px; }
 .countdown span { font-size: clamp(26px, 3.4vw, 42px); }
+
+/* Qur'an 78:8 above "Three celebrations" — small, quiet, readable */
+.events__head { justify-items: start; }
+.verse--small { margin: 0 0 clamp(14px, 2.4vw, 26px); text-align: left; }
+.verse--small .verse__ar { font-size: clamp(24px, 2.4vw, 30px); line-height: 1.5; color: var(--violet); }
+.verse--small .verse__en { margin: 0; font-size: clamp(15px, 1.3vw, 17px); color: var(--ink); }
+.verse--small .verse__ref { margin: 2px 0 0; font-size: 10.5px; color: var(--gold-ink); }

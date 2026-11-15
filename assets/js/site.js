@@ -57,7 +57,7 @@
     const y1 = Math.max(...pts.map((p) => p[1])) + 45; // room for the NAIROBI label
     // the routes sit in the top band of the page; the verse and welcome fill the rest
     // measure the free space between the nav and the top of the verse
-    const verse = welcomeStage.querySelector('.welcome .verse');
+    const verse = welcomeStage.querySelector('.welcome > *');
     const navFrac = 64 / Math.max(1, r.height);
     const freeTop = verse ? (verse.getBoundingClientRect().top - r.top - 34) / Math.max(1, r.height) : 0.45;
     const band = clamp(freeTop - navFrac, 0.22, 0.6);
