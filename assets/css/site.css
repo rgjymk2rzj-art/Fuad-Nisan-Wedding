@@ -352,4 +352,16 @@ a:hover { color: var(--gold-ink); }
 .verse--welcome .verse__en { margin-top: 6px; font-size: clamp(13.5px, 1.15vw, 16px); line-height: 1.55; color: var(--on-ink); opacity: .9; }
 .verse--welcome .verse__ref { margin-top: 6px; font-size: 10.5px; color: var(--gold); }
 @media (max-width: 600px) { .verse--welcome .verse__ar { font-size: 17px; line-height: 1.8; } .verse--welcome .verse__en { font-size: 13px; } }
-@media (max-height: 700px) { .verse--welcome .verse__en { display: none; } }
+@media (max-width: 600px) and (max-height: 700px) { .verse--welcome .verse__en { display: none; } }
+
+/* Size the opening to the window height too, so laptops (short, wide windows)
+   show everything — title, timer, dates and the full verse — below the nav */
+.welcome h1 { font-size: clamp(22px, min(3.4vw, 4.6vh), 44px); }
+.welcome .names { font-size: clamp(40px, min(7.6vw, 10.5vh), 112px); }
+.countdown div { min-width: clamp(64px, min(9.5vw, 12vh), 118px); padding: clamp(8px, 1.4vh, 18px) 8px clamp(7px, 1.1vh, 14px); }
+.countdown span { font-size: clamp(28px, min(4.6vw, 6.2vh), 62px); }
+.welcome { gap: clamp(6px, 1.4vh, 18px); padding-top: calc(var(--nav) + 8px); padding-bottom: 16px; }
+.verse--welcome { margin-top: clamp(6px, 1.6vh, 26px); padding-top: clamp(8px, 1.6vh, 22px); }
+.verse--welcome .verse__ar { font-size: clamp(16px, min(1.8vw, 2.9vh), 24px); line-height: 1.75; }
+.verse--welcome .verse__en { font-size: clamp(12.5px, min(1.15vw, 2vh), 16px); }
+@media (max-width: 600px) { .countdown div { min-width: 0; width: 76px; } .verse--welcome .verse__ar { font-size: 17px; } .verse--welcome .verse__en { font-size: 13px; } }
