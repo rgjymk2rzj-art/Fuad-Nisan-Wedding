@@ -412,12 +412,12 @@ a:hover { color: var(--gold-ink); }
 .countdown span { font-size: clamp(22px, min(2.9vw, 4vh), 38px); }
 .countdown small { font-size: clamp(8.5px, .7vw, 10px); letter-spacing: .16em; }
 @media (max-width: 600px) {
-  .welcome .names { font-size: clamp(42px, 11.8vw, 56px); }
+  .welcome .names { font-size: clamp(44px, 14.5vw, 64px); }
   .countdown div { width: 62px; min-width: 0; }
   .countdown span { font-size: 24px; }
 }
 @media (max-width: 600px) and (max-height: 700px) {
-  .welcome .names { font-size: 42px; }
+  .welcome .names { font-size: 48px; }
   .countdown div { width: 56px; padding: 6px 4px 5px; }
   .countdown span { font-size: 21px; }
 }
