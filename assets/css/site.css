@@ -451,3 +451,8 @@ a:hover { color: var(--gold-ink); }
 
 .card__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 .card__tags .card__tag { margin: 0; }
+
+/* new event photos: keep the bride and the FN sign in frame */
+.card--henna .card__img img { object-position: 56% 48%; }
+.card--reception .card__img img { object-position: 62% 42%; }
+@media (max-width: 820px) { .card--reception .card__img img { object-position: 62% 68%; } .card--henna .card__img img { object-position: 56% 40%; } }
