@@ -573,3 +573,6 @@ body.rsvp-open { overflow: hidden; }
 .dishes li { grid-template-columns: auto 1fr; align-items: center; gap: 6px 12px; }
 .dishes .tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 5px; }
 .dishes .tags i { font-style: normal; font-size: 11.5px; line-height: 1; padding: 5px 9px; border-radius: 999px; background: var(--lilac-2); border: 1px solid var(--lilac); color: var(--violet); white-space: nowrap; }
+/* name on top, its three tags in one row underneath */
+.dishes li { grid-template-columns: 1fr; gap: 6px; }
+.dishes .tags { justify-content: flex-start; }
