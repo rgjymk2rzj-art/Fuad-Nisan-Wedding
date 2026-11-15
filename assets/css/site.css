@@ -469,3 +469,9 @@ a:hover { color: var(--gold-ink); }
 /* dates on one line, place on the next */
 .welcome__date span { display: block; }
 .welcome__date span + span { margin-top: 2px; }
+
+/* Card heading: "01 · Henna" with the Arabic name beside it */
+.card h3.card__title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 18px; margin: 0; font-size: inherit; line-height: 1.2; }
+.card__title .card__num { margin: 0; font-size: clamp(13px, 1.1vw, 15px); }
+.card__title .card__ar { font-family: var(--arabic); font-weight: 400; font-size: clamp(28px, 2.6vw, 38px); line-height: 1.3; color: var(--lavender); }
+.card--nikah .card__title .card__ar, .card--reception .card__title .card__ar { color: var(--violet); }
