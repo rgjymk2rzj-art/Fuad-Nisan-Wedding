@@ -507,7 +507,8 @@ a:hover { color: var(--gold-ink); }
 .lines__big h2.lines__k { margin: 0; padding: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(40px, 5.4vw, 72px); letter-spacing: -.005em; line-height: 1.05; color: var(--ink); }
 
 /* small cards for transport and Nairobi picks */
-.hotel--sm .hotel__name { font-size: 22px; font-weight: 700; }
+.hotel--sm .hotel__name { font-size: 22px; }
+.hotels--dine .hotel__name { font-weight: 700; }
 .picks { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .picks li { padding: 5px 11px; border-radius: 999px; background: var(--lilac-2); border: 1px solid var(--lilac); font-size: 13px; color: var(--ink); line-height: 1.3; }
 
