@@ -456,3 +456,12 @@ a:hover { color: var(--gold-ink); }
 .card--henna .card__img img { object-position: 56% 48%; }
 .card--reception .card__img img { object-position: 62% 42%; }
 @media (max-width: 820px) { .card--reception .card__img img { object-position: 62% 68%; } .card--henna .card__img img { object-position: 56% 40%; } }
+
+/* Violet blooms drifting down over the guest-guide pane */
+.pane__fall { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.fall { position: absolute; top: -70px; left: var(--x); width: var(--s); animation: fall var(--dur) linear var(--delay) infinite; animation-play-state: paused; will-change: transform; }
+.fall img { display: block; width: 100%; height: auto; animation: sway var(--sw) ease-in-out var(--delay) infinite alternate; animation-play-state: paused; opacity: .95; }
+.guide__pane.is-live .fall, .guide__pane.is-live .fall img { animation-play-state: running; }
+@keyframes fall { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(var(--drift), calc(100% + 760px), 0); } }
+@keyframes sway { from { transform: translateX(-14px) rotate(calc(var(--r) * -1)); } to { transform: translateX(14px) rotate(var(--r)); } }
+@media (prefers-reduced-motion: reduce) { .pane__fall { display: none; } }

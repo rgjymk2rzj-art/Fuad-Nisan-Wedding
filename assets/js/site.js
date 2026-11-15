@@ -194,6 +194,35 @@
   window.addEventListener('resize', () => { request(); clearTimeout(rt); rt = setTimeout(() => map && buildMap(map.data), 200); });
   frame();
 
+  // ---------- falling blooms on the guest-guide pane ----------
+  const pane = $('.guide__pane');
+  const fall = pane && $('.pane__fall', pane);
+  if (fall && !reduce) {
+    const n = window.innerWidth < 700 ? 9 : 16;
+    const rand = (a, b) => a + Math.random() * (b - a);
+    for (let i = 0; i < n; i++) {
+      const d = document.createElement('div');
+      d.className = 'fall';
+      const dur = rand(9, 16);
+      d.style.setProperty('--x', rand(-2, 98).toFixed(1) + '%');
+      d.style.setProperty('--s', Math.round(rand(22, 46)) + 'px');
+      d.style.setProperty('--dur', dur.toFixed(1) + 's');
+      d.style.setProperty('--delay', (-rand(0, dur)).toFixed(1) + 's');
+      d.style.setProperty('--drift', Math.round(rand(-90, 90)) + 'px');
+      d.style.setProperty('--sw', rand(2.4, 4.2).toFixed(1) + 's');
+      d.style.setProperty('--r', Math.round(rand(10, 35)) + 'deg');
+      const img = document.createElement('img');
+      img.src = '/assets/img/bloom-' + (1 + (i % 6)) + '.webp';
+      img.alt = '';
+      img.decoding = 'async';
+      d.appendChild(img);
+      fall.appendChild(d);
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((es) => es.forEach((e) => pane.classList.toggle('is-live', e.isIntersecting))).observe(pane);
+    } else pane.classList.add('is-live');
+  }
+
   // ---------- countdown ----------
   $$('[data-countdown]').forEach((box) => {
     const target = new Date(box.getAttribute('data-countdown')).getTime();
