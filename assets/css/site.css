@@ -462,7 +462,7 @@ a:hover { color: var(--gold-ink); }
 .fall { position: absolute; top: -70px; left: var(--x); width: var(--s); animation: fall var(--dur) linear var(--delay) infinite; animation-play-state: paused; will-change: transform; }
 .fall img { display: block; width: 100%; height: auto; animation: sway var(--sw) ease-in-out var(--delay) infinite alternate; animation-play-state: paused; opacity: .95; }
 .guide__pane.is-live .fall, .guide__pane.is-live .fall img { animation-play-state: running; }
-@keyframes fall { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(var(--drift), calc(100% + 760px), 0); } }
+@keyframes fall { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(var(--drift), var(--fall, calc(100% + 760px)), 0); } }
 @keyframes sway { from { transform: translateX(-14px) rotate(calc(var(--r) * -1)); } to { transform: translateX(14px) rotate(var(--r)); } }
 @media (prefers-reduced-motion: reduce) { .pane__fall { display: none; } }
 
@@ -600,3 +600,10 @@ body.rsvp-open { overflow: hidden; }
 @media (max-width: 380px) { .phone { grid-template-columns: minmax(0, 120px) minmax(0, 1fr); } }
 /* keep sparkles anchored to the letter when it isn't sticky */
 @media (max-width: 900px) { .guide__intro.letter { position: relative; top: auto; } }
+
+/* Violet blooms drifting down the welcome screen as the words appear */
+.stage__fall { z-index: 1; opacity: 0; transition: opacity 1.4s ease .2s; }
+.stage__fall .fall { --fall: calc(100svh + 140px); }
+.stage__fall .fall img { opacity: .95; filter: brightness(1.7) saturate(1.05) drop-shadow(0 0 8px rgba(196, 170, 230, .35)); }
+.stage--ink.is-welcome .stage__fall { opacity: 1; }
+.stage--ink.is-welcome.is-live .stage__fall .fall, .stage--ink.is-welcome.is-live .stage__fall .fall img { animation-play-state: running; }

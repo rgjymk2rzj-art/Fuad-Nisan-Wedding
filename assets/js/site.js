@@ -197,12 +197,9 @@
   window.addEventListener('resize', () => { request(); clearTimeout(rt); rt = setTimeout(() => map && buildMap(map.data), 200); });
   frame();
 
-  // ---------- falling blooms on the guest-guide pane ----------
-  const pane = $('.guide__pane');
-  const fall = pane && $('.pane__fall', pane);
-  if (fall && !reduce) {
-    const n = window.innerWidth < 700 ? 9 : 16;
-    const rand = (a, b) => a + Math.random() * (b - a);
+  // ---------- falling violet blooms (guest-guide pane + welcome screen) ----------
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const sow = (box, n, fresh) => {
     for (let i = 0; i < n; i++) {
       const d = document.createElement('div');
       d.className = 'fall';
@@ -210,7 +207,8 @@
       d.style.setProperty('--x', rand(-2, 98).toFixed(1) + '%');
       d.style.setProperty('--s', Math.round(rand(22, 46)) + 'px');
       d.style.setProperty('--dur', dur.toFixed(1) + 's');
-      d.style.setProperty('--delay', (-rand(0, dur)).toFixed(1) + 's');
+      // fresh: the first wave starts at the top once revealed; otherwise already mid-fall
+      d.style.setProperty('--delay', (fresh ? rand(0, dur * 0.75) : -rand(0, dur)).toFixed(1) + 's');
       d.style.setProperty('--drift', Math.round(rand(-90, 90)) + 'px');
       d.style.setProperty('--sw', rand(2.4, 4.2).toFixed(1) + 's');
       d.style.setProperty('--r', Math.round(rand(10, 35)) + 'deg');
@@ -219,11 +217,24 @@
       img.alt = '';
       img.decoding = 'async';
       d.appendChild(img);
-      fall.appendChild(d);
+      box.appendChild(d);
     }
+  };
+  const liveWhenVisible = (el) => {
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver((es) => es.forEach((e) => pane.classList.toggle('is-live', e.isIntersecting))).observe(pane);
-    } else pane.classList.add('is-live');
+      new IntersectionObserver((es) => es.forEach((e) => el.classList.toggle('is-live', e.isIntersecting))).observe(el);
+    } else el.classList.add('is-live');
+  };
+  const pane = $('.guide__pane');
+  const fall = pane && $('.pane__fall', pane);
+  if (fall && !reduce) {
+    sow(fall, window.innerWidth < 700 ? 9 : 16, false);
+    liveWhenVisible(pane);
+  }
+  const stageFall = $('.stage__fall');
+  if (stageFall && !reduce) {
+    sow(stageFall, window.innerWidth < 700 ? 10 : 18, true);
+    liveWhenVisible(stageFall.parentElement);
   }
 
   // ---------- welcome letter: words fade in with a golden sparkle ----------
