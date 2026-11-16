@@ -322,6 +322,7 @@
       if (mobile.replace(/[^0-9]/g, '').length < 7) { f.mobile.setAttribute('aria-invalid', 'true'); f.mobile.focus(); return showErr(f.cc.value ? 'Please enter your mobile number.' : 'Please enter your mobile number, starting with + and your country code.'); }
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { f.email.setAttribute('aria-invalid', 'true'); f.email.focus(); return showErr('Please enter a valid email address.'); }
       if (!f.attend.checked) { f.attend.focus(); return showErr('Please tick the box to confirm your attendance.'); }
+      if (!f.invited.checked) { f.invited.focus(); return showErr('Please confirm you have been asked to RSVP by Fuad, Nisan or an immediate family member.'); }
       if (!RSVP_FORM.action) return showErr('RSVP is opening shortly — please try again soon.');
       const btn = $('.rsvp__submit', form); btn.disabled = true; btn.textContent = 'Sending…';
       const body = new URLSearchParams();

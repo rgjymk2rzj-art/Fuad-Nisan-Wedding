@@ -607,3 +607,7 @@ body.rsvp-open { overflow: hidden; }
 .stage__fall .fall img { opacity: .95; filter: brightness(1.7) saturate(1.05) drop-shadow(0 0 8px rgba(196, 170, 230, .35)); }
 .stage--ink.is-welcome .stage__fall { opacity: 1; }
 .stage--ink.is-welcome.is-live .stage__fall .fall, .stage--ink.is-welcome.is-live .stage__fall .fall img { animation-play-state: running; }
+
+/* second RSVP confirmation: wraps to two lines, so align to the top */
+.rsvp__check { align-items: flex-start; line-height: 1.4; }
+.rsvp__check input { margin-top: 1px; }
